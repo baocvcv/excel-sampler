@@ -49,19 +49,19 @@ class Sampler(wx.Frame):
 
         self.btnOpenFile = wx.Button(self.panel, label='选择文件')
         self.btnOpenFile.Bind(wx.EVT_BUTTON, self.OnOpenFile)
-        btnBox1.Add(self.btnOpenFile, proportion=1, flag=wx.ALL | wx.EXPAND, border=10)
+        btnBox1.Add(self.btnOpenFile, proportion=1, flag=wx.ALL | wx.EXPAND, border=5)
         
         self.btnSave = wx.Button(self.panel, label='导出文件')
         self.btnSave.Bind(wx.EVT_BUTTON, self.OnSaveFile)
-        btnBox1.Add(self.btnSave, proportion=1, flag=wx.ALL | wx.EXPAND, border=10)
+        btnBox1.Add(self.btnSave, proportion=1, flag=wx.ALL | wx.EXPAND, border=5)
 
         btnClose = wx.Button(self.panel, label='关闭文件')
         btnClose.Bind(wx.EVT_BUTTON, self.OnCloseFile)
-        btnBox1.Add(btnClose, proportion=1, flag=wx.ALL | wx.EXPAND, border=10)
+        btnBox1.Add(btnClose, proportion=1, flag=wx.ALL | wx.EXPAND, border=5)
 
         btnExit = wx.Button(self.panel, label='退出')
         btnExit.Bind(wx.EVT_BUTTON, self.OnExit)
-        btnBox1.Add(btnExit, proportion=1, flag=wx.ALL | wx.EXPAND, border=10)
+        btnBox1.Add(btnExit, proportion=1, flag=wx.ALL | wx.EXPAND, border=5)
 
         # sample options
         optBox1 = wx.BoxSizer(wx.HORIZONTAL)
@@ -86,18 +86,22 @@ class Sampler(wx.Frame):
 
         txt='''如果两个都选，则按
 较大数量抽取'''
-        st = wx.StaticText(self.panel, label=txt, style=wx.ALIGN_CENTRE)
-        optBox1.Add(st, proportion=1)
+        st1 = wx.StaticText(self.panel, label=txt, style=wx.ALIGN_CENTRE)
+        optBox1.Add(st1, proportion=1, flag=wx.EXPAND)
 
         # selection box
+        selectBox = wx.BoxSizer(wx.VERTICAL)
+        st2 = wx.StaticText(self.panel, label='请在下表选择需要导出的数据', style=wx.ALIGN_LEFT)
         self.listCtrl = CheckListCtrl(self.panel)
         self.listCtrl.InsertColumn(0, '可导出的列')
         self.listCtrl.InsertColumn(1, '列序号')
         self.listCtrl.setResizeColumn(0)
+        selectBox.Add(st2, proportion=1, flag=wx.LEFT | wx.EXPAND, border=20)
+        selectBox.Add(self.listCtrl, proportion=5, flag=wx.ALL | wx.EXPAND, border=10)
 
-        mainBox.Add(btnBox1, proportion=1)
-        mainBox.Add(optBox1, proportion=1)
-        mainBox.Add(self.listCtrl, proportion=2, flag=wx.ALL | wx.EXPAND, border=20)
+        mainBox.Add(btnBox1, proportion=1, flag=wx.ALL | wx.EXPAND, border=10)
+        mainBox.Add(optBox1, proportion=2, flag=wx.EXPAND | wx.TOP, border=20)
+        mainBox.Add(selectBox, proportion=4, flag=wx.EXPAND)
         self.panel.SetSizer(mainBox)
 
 
